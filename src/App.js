@@ -1,11 +1,18 @@
-import Navbar from './components/Navbar/Navbar'
+//Containers
+import MainContainer from './containers/MainContainer'
+//Components
+import NavSection from './components/NavSection/NavSection'
+import HeroSection from './components/HeroSection/HeroSection'
+import MainSection from './components/MainSection/MainSection'
+import ProductsSection from './components/ProductsSection/ProductsSection'
 
-function App() {
+export default function App() {
   return (
-    <>
-      <Navbar />
-    </>
+    <MainContainer>
+      <NavSection />
+      <HeroSection />
+      <MainSection />
+      <ProductsSection />
+    </MainContainer>
   )
 }
-
-export default App
