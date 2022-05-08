@@ -8,6 +8,7 @@ export const createProducts = /* GraphQL */ `
   ) {
     createProducts(input: $input, condition: $condition) {
       id
+      name
       category
       price
       currency
@@ -39,6 +40,7 @@ export const updateProducts = /* GraphQL */ `
   ) {
     updateProducts(input: $input, condition: $condition) {
       id
+      name
       category
       price
       currency
@@ -70,6 +72,7 @@ export const deleteProducts = /* GraphQL */ `
   ) {
     deleteProducts(input: $input, condition: $condition) {
       id
+      name
       category
       price
       currency

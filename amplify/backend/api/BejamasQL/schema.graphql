@@ -5,7 +5,8 @@ input AMPLIFY {
 } # FOR TESTING ONLY!
 type Products @model {
   id: ID!
-  category: String!
+  name: String!
+  category: String
   price: Float
   currency: String
   image: Image

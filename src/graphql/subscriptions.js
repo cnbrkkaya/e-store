@@ -5,6 +5,7 @@ export const onCreateProducts = /* GraphQL */ `
   subscription OnCreateProducts {
     onCreateProducts {
       id
+      name
       category
       price
       currency
@@ -33,6 +34,7 @@ export const onUpdateProducts = /* GraphQL */ `
   subscription OnUpdateProducts {
     onUpdateProducts {
       id
+      name
       category
       price
       currency
@@ -61,6 +63,7 @@ export const onDeleteProducts = /* GraphQL */ `
   subscription OnDeleteProducts {
     onDeleteProducts {
       id
+      name
       category
       price
       currency

@@ -5,6 +5,7 @@ export const getProducts = /* GraphQL */ `
   query GetProducts($id: ID!) {
     getProducts(id: $id) {
       id
+      name
       category
       price
       currency
@@ -38,6 +39,7 @@ export const listProducts = /* GraphQL */ `
     listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
         category
         price
         currency
