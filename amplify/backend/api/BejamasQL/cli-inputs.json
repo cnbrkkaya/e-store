@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "BejamasQL",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\canberk\\Desktop\\bej\\bejamas-store\\amplify\\backend\\api\\BejamasQL\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 30,
+      "apiKeyExpirationDate": "2022-06-07T19:43:43.249Z",
+      "keyDescription": ""
+    }
+  }
+}
