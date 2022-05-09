@@ -1,17 +1,15 @@
 //Containers
 import MainContainer from './containers/MainContainer'
 //Components
-import NavSection from './components/NavSection/NavSection'
-import HeroSection from './components/HeroSection/HeroSection'
-import MainSection from './components/MainSection/MainSection'
-import ProductsSection from './components/ProductsSection/ProductsSection'
+import NavSection from './sections/NavSection/NavSection'
+import ProductsSection from './sections/ProductsSection/ProductsSection'
+import FeaturedSection from './sections/FeaturedSection/FeaturedSection'
 
 export default function App() {
   return (
     <MainContainer>
       <NavSection />
-      <HeroSection />
-      <MainSection />
+      <FeaturedSection />
       <ProductsSection />
     </MainContainer>
   )

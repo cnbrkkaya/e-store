@@ -3,7 +3,7 @@ import { Dialog, Disclosure, Transition, Menu } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, FilterIcon, PlusSmIcon } from '@heroicons/react/solid'
 //Components
-import ProductList from '../ProductList/ProductList'
+import ProductList from '../../components/ProductList/ProductList'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },

@@ -6,7 +6,7 @@ import {
   useContext,
 } from 'react'
 //Amplify package
-import { Auth, API, graphqlOperation } from 'aws-amplify'
+import { API, graphqlOperation } from 'aws-amplify'
 //Graphql operations
 import { listProducts } from '../graphql/queries'
 
@@ -20,17 +20,17 @@ export default function ProductContextProvider(props) {
     try {
       const response = await API.graphql(graphqlOperation(listProducts))
       const result = response.data.listProducts.items
-      const otherProducts = result.filter((item) => {
-        if (!item.featured) {
-          setFeaturedProduct(item)
-          return item
-        }
-      })
-      setProducts(otherProducts)
+      productsHandler(result)
     } catch (err) {
       console.error(err)
     }
   }, [])
+
+  function productsHandler(result) {
+    const featured = result.filter((product) => product.featured)
+    setFeaturedProduct(featured[0])
+    setProducts(result.filter((product) => !product.featured))
+  }
 
   useEffect(() => {
     listProductsHandler()

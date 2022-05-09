@@ -29,7 +29,7 @@ export default function NavSection() {
                 <img
                   className='h-8 w-auto sm:h-10'
                   src={ShoppingCart}
-                  alt='Shopping Cart Image'
+                  alt='Shopping Cart'
                 />
               </span>
             </div>
