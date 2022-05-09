@@ -22,17 +22,17 @@ export default function FeaturedSection() {
     <>
       {featuredProduct && (
         <main className='mx-auto max-w-7xl px-4 '>
-          <div className=' mt-5 mb-5 grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8'>
-            <div className='grid grid-cols-1 gap-4 lg:col-span-2'>
-              <h1 className='text-xl font-semibold text-black-900'>
+          <div className='flex justify-between'>
+            <div className='py-2'>
+              <h1 className='text-md sm:text-3xl py-2 font-bold text-black-900'>
                 {featuredProduct.name}
               </h1>
             </div>
-            <div className='grid grid-cols-1 gap-4'>
-              <button
-                onClick={handleAddProduct}
-                className='bg-black text-white'>
-                Add to Cart
+            <div className='py-6'>
+              <button onClick={handleAddProduct} className=''>
+                <span className='bg-black right-0 sm:tracking-widest text-white py-2 px-4 sm:px-12 '>
+                  ADD TO CART
+                </span>
               </button>
             </div>
           </div>
@@ -46,9 +46,13 @@ export default function FeaturedSection() {
               <section>
                 <div className='rounded-lg bg-white overflow-hidden '>
                   <div className='p-6'>
-                    <h2>{featuredProduct.name}</h2>
-                    <h3>{featuredProduct.category}</h3>
-                    <p>{featuredProduct.description}</p>
+                    <h2 className='font-bold py-2'>{featuredProduct.name}</h2>
+                    <h3 className='font-bold py-2 text-gray-500'>
+                      {featuredProduct.category}
+                    </h3>
+                    <p className='text-gray-600 '>
+                      {featuredProduct.description}
+                    </p>
                   </div>
                 </div>
               </section>
@@ -58,10 +62,10 @@ export default function FeaturedSection() {
             <div className='grid grid-cols-1 gap-4'>
               <section>
                 <div className='rounded-lg bg-white overflow-hidden '>
-                  <div className='p-6'>
-                    <h2>People also buy</h2>
+                  <div className='py-6 text-right'>
+                    <h2 className='font-bold'>People also buy</h2>
                   </div>
-                  <div className='flex'>
+                  <div className='flex justify-between'>
                     {featuredProduct.recommendations.map((recommendation) => {
                       return (
                         <img
@@ -71,6 +75,13 @@ export default function FeaturedSection() {
                         />
                       )
                     })}
+                  </div>
+                  <div className='flex flex-col text-right py-8'>
+                    <h3 className='font-bold text-lg'>Details</h3>
+                    <p className='text-gray-600 py-2'>
+                      Size: 1020 x 1020 pixels
+                    </p>
+                    <p className='text-gray-600'>Size: 15mb</p>
                   </div>
                 </div>
               </section>

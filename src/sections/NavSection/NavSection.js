@@ -1,12 +1,12 @@
-import Logo from '../../assets/images/Logo.png'
+import Logo from '../../assets/images/logo.svg'
 import ShoppingCart from '../../assets/images/ShoppingCart.png'
 import Cart from '../../components/Cart/Cart'
 
 export default function NavSection() {
   return (
-    <div className='relative pt-6  fixed sticky top-0 z-50 bg-white-100'>
+    <div className='px-2 sm:px-0 pt-6 fixed sticky top-0 z-50 bg-white-100'>
       {/* LOGO AND SHOPPING CART */}
-      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+      <div className='max-w-7xl mx-auto'>
         <nav
           className='relative flex items-center justify-between sm:h-10 md:justify-center'
           aria-label='Global'>
@@ -16,7 +16,7 @@ export default function NavSection() {
               <a href='/'>
                 <span className='sr-only'>Bejamas Store</span>
                 <img
-                  className='h-8 w-auto sm:h-10'
+                  className='h-8 w-auto mb-4 sm:h-6'
                   src={Logo}
                   alt='Bejamas Logo'
                 />
@@ -25,16 +25,19 @@ export default function NavSection() {
           </div>
           {/* SHOPPING CART */}
           <div className='md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0'>
-            <span className='inline-flex rounded-md shadow'>
+            <span className='inline-flex rounded-md'>
               <Cart />
             </span>
           </div>
         </nav>
-      </div>
-      {/* DIVIDER */}
-      <div className='relative'>
-        <div className='absolute inset-0 flex items-center' aria-hidden='true'>
-          <div className='w-full border-t border-gray-300' />
+
+        {/* DIVIDER */}
+        <div className='relative'>
+          <div
+            className='absolute inset-0 flex items-center'
+            aria-hidden='true'>
+            <div className='w-full border-t border-gray-300' />
+          </div>
         </div>
       </div>
     </div>

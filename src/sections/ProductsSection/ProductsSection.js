@@ -185,17 +185,21 @@ export default function ProductsSection() {
             </Dialog>
           </Transition.Root>
 
-          <main className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
-            <div className='relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200'>
-              <h1 className='text-4xl font-extrabold tracking-tight text-gray-900'>
-                Photography / Premium Photos
+          <main className='max-w-2xl mx-auto py-16 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8'>
+            <div className='border-t border-gray-300 mb-12' />
+            <div className='relative z-10 flex items-baseline justify-between  pb-6 '>
+              <h1 className='text-sm sm:text-lg sm:text-2xl font-bold tracking-tight text-gray-900'>
+                Photography
+                <span className='hidden sm:block  text-gray-500 font-medium'>
+                  Premium Photos
+                </span>
               </h1>
 
               <div className='flex items-center'>
                 {selectedSortOptions === 'Price' && (
                   <button onClick={handleSortDirection}>
                     <SwitchVerticalIcon
-                      className='mr-5 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
+                      className='mr-4 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
                       aria-hidden='true'
                     />
                   </button>
@@ -245,13 +249,13 @@ export default function ProductsSection() {
                   </Transition>
                 </Menu>
 
-                <button
+                {/* <button
                   type='button'
                   className='p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden'
                   onClick={() => setOpen(true)}>
                   <span className='sr-only'>Filters</span>
                   <FilterIcon className='w-5 h-5' aria-hidden='true' />
-                </button>
+                </button> */}
               </div>
             </div>
 

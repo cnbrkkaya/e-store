@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import ShoppingCart from '../../assets/images/ShoppingCart.png'
+import ShoppingCart from '../../assets/images/ShoppingCart.svg'
 //Contexts
 import { useCart } from '../../contexts/CartContext/CartContext'
 //Components
@@ -12,11 +12,11 @@ export default function Cart() {
     <Popover className='ml-4 flow-root text-sm lg:relative lg:ml-8'>
       <Popover.Button className='group -m-2 p-2 flex items-center'>
         <img
-          className='h-8 w-auto sm:h-10'
+          className='h-8 w-auto sm:h-6 mb-4'
           src={ShoppingCart}
           alt='Shopping Cart'
         />
-        <span className='ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800'>
+        <span className='ml-2 mb-4 text-sm font-medium text-gray-700 group-hover:text-gray-800'>
           {cartProducts?.length}
         </span>
         <span className='sr-only'>items in cart, view bag</span>
@@ -31,7 +31,7 @@ export default function Cart() {
         leaveTo='opacity-0'>
         <Popover.Panel
           static
-          className='absolute top-16 inset-x-0 mt-px pb-6 bg-white shadow-lg sm:px-2 lg:top-full lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5'>
+          className='absolute top-16 inset-x-0 mt-px pb-6 bg-white sm:px-2 lg:top-8 lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5'>
           <h2 className='sr-only'>Shopping Cart</h2>
 
           <div className='max-w-2xl mx-auto px-4'>
@@ -50,8 +50,8 @@ export default function Cart() {
               onClick={() => {
                 clearCart()
               }}
-              className='w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500'>
-              CLear
+              className='w-full bg-white border border-black py-2 px-4 text-sm font-medium text-black  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500'>
+              CLEAR
             </button>
           </div>
         </Popover.Panel>
