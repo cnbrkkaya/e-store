@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import ShoppingCart from '../../assets/images/ShoppingCart.svg'
 //Contexts
-import { useCart } from '../../contexts/CartContext/CartContext'
+import { useCart } from '../../hooks/useCart/useCart'
 //Components
 import CartItem from '../CartItem/CartItem'
 

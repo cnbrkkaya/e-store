@@ -1,5 +1,5 @@
 import { XIcon } from '@heroicons/react/solid'
-import { useCart } from '../../contexts/CartContext/CartContext'
+import { useCart } from '../../hooks/useCart/useCart'
 
 export default function CartItem({ product }) {
   const { removeProduct } = useCart()

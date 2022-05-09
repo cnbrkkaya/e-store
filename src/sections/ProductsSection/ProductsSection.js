@@ -2,16 +2,14 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Transition, Menu } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import {
-  ChevronUpIcon,
   ChevronDownIcon,
-  FilterIcon,
   PlusSmIcon,
   SwitchVerticalIcon,
 } from '@heroicons/react/solid'
 //Components
 import ProductList from '../../components/ProductList/ProductList'
 //Contexts
-import { useProduct } from '../../contexts/ProductContext/ProductContext'
+import { useProduct } from '../../hooks/useProduct/useProduct'
 
 const sortOptions = [
   { name: 'Alphabetically', href: '#', current: false },
@@ -52,11 +50,9 @@ export default function ProductsSection() {
     products,
     sortByPrice,
     sortByAlphabetically,
-    togglePriceSortDirection,
     ascendingOrder,
     descendingOrder,
   } = useProduct()
-  console.log(products)
 
   //Sort by Dialog component control
   const [open, setOpen] = useState(false)
@@ -199,7 +195,7 @@ export default function ProductsSection() {
                 {selectedSortOptions === 'Price' && (
                   <button onClick={handleSortDirection}>
                     <SwitchVerticalIcon
-                      className='mr-4 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
+                      className='mr-5 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
                       aria-hidden='true'
                     />
                   </button>

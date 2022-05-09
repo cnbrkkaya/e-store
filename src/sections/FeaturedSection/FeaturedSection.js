@@ -1,6 +1,6 @@
 //Contexts
-import { useProduct } from '../../contexts/ProductContext/ProductContext'
-import { useCart } from '../../contexts/CartContext/CartContext'
+import { useProduct } from '../../hooks/useProduct/useProduct'
+import { useCart } from '../../hooks/useCart/useCart'
 
 export default function FeaturedSection() {
   const { featuredProduct } = useProduct()
