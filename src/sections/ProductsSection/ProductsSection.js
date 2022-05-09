@@ -1,7 +1,13 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Transition, Menu } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon, FilterIcon, PlusSmIcon } from '@heroicons/react/solid'
+import {
+  ChevronUpIcon,
+  ChevronDownIcon,
+  FilterIcon,
+  PlusSmIcon,
+  SwitchVerticalIcon,
+} from '@heroicons/react/solid'
 //Components
 import ProductList from '../../components/ProductList/ProductList'
 //Contexts
@@ -50,6 +56,8 @@ export default function ProductsSection() {
   const [sortedProducts, setSortedProducts] = useState([])
   //Sort by Dialog component control
   const [open, setOpen] = useState(false)
+  //Sorting Order
+  const [isAscending, setIsAscending] = useState(true)
 
   useEffect(() => {
     //prevent directly mutation of state
@@ -66,6 +74,22 @@ export default function ProductsSection() {
       setSortedProducts(b)
     }
   }, [selectedSortOptions])
+
+  function handleSortDirection() {
+    setIsAscending(!isAscending)
+    const copyProducts = [...products]
+    if (isAscending) {
+      const a = copyProducts.sort((a, b) => {
+        return b.price - a.price
+      })
+      setSortedProducts(a)
+    } else {
+      const a = copyProducts.sort((a, b) => {
+        return a.price - b.price
+      })
+      setSortedProducts(a)
+    }
+  }
 
   return (
     <div className='mx-auto max-w-7xl px-4'>
@@ -175,6 +199,14 @@ export default function ProductsSection() {
               </h1>
 
               <div className='flex items-center'>
+                {selectedSortOptions === 'Price' && (
+                  <button onClick={handleSortDirection}>
+                    <SwitchVerticalIcon
+                      className='mr-4 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
+                      aria-hidden='true'
+                    />
+                  </button>
+                )}
                 <Menu as='div' className='relative inline-block text-left'>
                   <div>
                     <Menu.Button className='group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900'>
