@@ -5,7 +5,11 @@ import CartReducer from './CartReducer'
 export const CartContext = createContext()
 
 export default function CartContextProvider(props) {
-  const [cartProducts, dispatch] = useReducer(CartReducer, [])
+  //get initial state from localstorage
+  const [cartProducts, dispatch] = useReducer(
+    CartReducer,
+    JSON.parse(localStorage.getItem('cart')) || []
+  )
 
   const addProduct = (payload) => {
     dispatch({ type: 'ADD_ITEM', payload })
