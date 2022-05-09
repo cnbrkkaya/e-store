@@ -1,6 +1,18 @@
+import { XIcon } from '@heroicons/react/solid'
+import { useCart } from '../../contexts/CartContext/CartContext'
+
 export default function CartItem({ product }) {
+  const { removeProduct } = useCart()
+
+  function handleRemove(params) {
+    removeProduct({ id: product.id })
+  }
   return (
     <li key={product.id} className='py-6 flex items-center'>
+      <button onClick={handleRemove}>
+        <XIcon className='h-5 w-5' aria-hidden='true' />
+      </button>
+
       <div className='ml-4 flex-auto'>
         <h3 className='font-medium text-gray-900'>
           <span>{product.name}</span>
