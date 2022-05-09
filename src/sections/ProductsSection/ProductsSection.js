@@ -1,16 +1,15 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Transition, Menu } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, FilterIcon, PlusSmIcon } from '@heroicons/react/solid'
 //Components
 import ProductList from '../../components/ProductList/ProductList'
+//Contexts
+import { useProduct } from '../../contexts/ProductContext'
 
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  { name: 'Alphabetically', href: '#', current: false },
+  { name: 'Price', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -43,17 +42,40 @@ const filters = [
 ]
 
 export default function ProductsSection() {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const { products } = useProduct()
+  //sort options state, default alphabetically
+  const [selectedSortOptions, setSelectedSortOptions] =
+    useState('Alphabetically')
+  // we will use this filtered products array to display
+  const [sortedProducts, setSortedProducts] = useState([])
+  //Sort by Dialog component control
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    //prevent directly mutation of state
+    const copyProducts = [...products]
+    if (selectedSortOptions === 'Price') {
+      const a = copyProducts.sort((a, b) => {
+        return a.price - b.price
+      })
+      setSortedProducts(a)
+    } else {
+      const b = copyProducts.sort((a, b) => {
+        return a.name.localeCompare(b.name)
+      })
+      setSortedProducts(b)
+    }
+  }, [selectedSortOptions])
 
   return (
     <div className='mx-auto max-w-7xl px-4'>
       <div className='bg-white'>
         <div>
-          <Transition.Root show={mobileFiltersOpen} as={Fragment}>
+          <Transition.Root show={open} as={Fragment}>
             <Dialog
               as='div'
               className='relative z-40 lg:hidden'
-              onClose={setMobileFiltersOpen}>
+              onClose={setOpen}>
               <Transition.Child
                 as={Fragment}
                 enter='transition-opacity ease-linear duration-300'
@@ -82,7 +104,7 @@ export default function ProductsSection() {
                       <button
                         type='button'
                         className='-mr-2 w-10 h-10 p-2 flex items-center justify-center text-gray-400 hover:text-gray-500'
-                        onClick={() => setMobileFiltersOpen(false)}>
+                        onClick={() => setOpen(false)}>
                         <span className='sr-only'>Close menu</span>
                         <XIcon className='h-6 w-6' aria-hidden='true' />
                       </button>
@@ -156,7 +178,7 @@ export default function ProductsSection() {
                 <Menu as='div' className='relative inline-block text-left'>
                   <div>
                     <Menu.Button className='group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900'>
-                      Sort By -
+                      Sort By - {selectedSortOptions}
                       <ChevronDownIcon
                         className='flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
                         aria-hidden='true'
@@ -177,8 +199,10 @@ export default function ProductsSection() {
                         {sortOptions.map((option) => (
                           <Menu.Item key={option.name}>
                             {({ active }) => (
-                              <a
-                                href={option.href}
+                              <button
+                                onClick={() =>
+                                  setSelectedSortOptions(option.name)
+                                }
                                 className={classNames(
                                   option.current
                                     ? 'font-medium text-gray-900'
@@ -187,7 +211,7 @@ export default function ProductsSection() {
                                   'block px-4 py-2 text-sm'
                                 )}>
                                 {option.name}
-                              </a>
+                              </button>
                             )}
                           </Menu.Item>
                         ))}
@@ -199,7 +223,7 @@ export default function ProductsSection() {
                 <button
                   type='button'
                   className='p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden'
-                  onClick={() => setMobileFiltersOpen(true)}>
+                  onClick={() => setOpen(true)}>
                   <span className='sr-only'>Filters</span>
                   <FilterIcon className='w-5 h-5' aria-hidden='true' />
                 </button>
@@ -212,7 +236,7 @@ export default function ProductsSection() {
                 <button
                   type='button'
                   className='inline-flex items-center lg:hidden'
-                  onClick={() => setMobileFiltersOpen(true)}>
+                  onClick={() => setOpen(true)}>
                   <span className='text-sm font-medium text-gray-700'>
                     Filters
                   </span>
@@ -261,7 +285,7 @@ export default function ProductsSection() {
 
               {/* Product grid */}
               <div className='mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3'>
-                <ProductList />
+                <ProductList products={sortedProducts} />
               </div>
             </div>
           </main>

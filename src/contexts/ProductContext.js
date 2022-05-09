@@ -37,9 +37,11 @@ export default function ProductContextProvider(props) {
   }, [listProductsHandler])
 
   return (
-    <ProductContext.Provider value={{ products, featuredProduct }}>
-      {props.children}
-    </ProductContext.Provider>
+    products.length > 0 && (
+      <ProductContext.Provider value={{ products, featuredProduct }}>
+        {props.children}
+      </ProductContext.Provider>
+    )
   )
 }
 

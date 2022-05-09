@@ -1,9 +1,6 @@
 import Product from '../Product/Product'
-//Contexts
-import { useProduct } from '../../contexts/ProductContext'
 
-export default function ProductList() {
-  const { products } = useProduct()
+export default function ProductList({ products }) {
   return (
     <div>
       <div>
