@@ -5,6 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 //contexts
 import ProductContextProvider from './contexts/ProductContext'
+import CartContextProvider from './contexts/CartContext/CartContext'
 //Amplify imports
 import { Amplify } from 'aws-amplify'
 import awsExports from './aws-exports'
@@ -15,7 +16,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <ProductContextProvider>
-      <App />
+      <CartContextProvider>
+        <App />
+      </CartContextProvider>
     </ProductContextProvider>
   </React.StrictMode>
 )

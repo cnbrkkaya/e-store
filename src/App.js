@@ -1,5 +1,6 @@
 //Containers
 import MainContainer from './containers/MainContainer'
+import ContentContainer from './containers/ContentContainer'
 //Components
 import NavSection from './sections/NavSection/NavSection'
 import ProductsSection from './sections/ProductsSection/ProductsSection'
@@ -9,8 +10,10 @@ export default function App() {
   return (
     <MainContainer>
       <NavSection />
-      <FeaturedSection />
-      <ProductsSection />
+      <ContentContainer>
+        <FeaturedSection />
+        <ProductsSection />
+      </ContentContainer>
     </MainContainer>
   )
 }
