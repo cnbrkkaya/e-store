@@ -1,5 +1,5 @@
 //Contexts
-import { useProduct } from '../../contexts/ProductContext'
+import { useProduct } from '../../contexts/ProductContext/ProductContext'
 import { useCart } from '../../contexts/CartContext/CartContext'
 
 export default function FeaturedSection() {

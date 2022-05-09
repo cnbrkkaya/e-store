@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 //contexts
-import ProductContextProvider from './contexts/ProductContext'
+import ProductContextProvider from './contexts/ProductContext/ProductContext'
 import CartContextProvider from './contexts/CartContext/CartContext'
 //Amplify imports
 import { Amplify } from 'aws-amplify'

@@ -11,7 +11,7 @@ import {
 //Components
 import ProductList from '../../components/ProductList/ProductList'
 //Contexts
-import { useProduct } from '../../contexts/ProductContext'
+import { useProduct } from '../../contexts/ProductContext/ProductContext'
 
 const sortOptions = [
   { name: 'Alphabetically', href: '#', current: false },
@@ -48,46 +48,39 @@ const filters = [
 ]
 
 export default function ProductsSection() {
-  const { products } = useProduct()
-  //sort options state, default alphabetically
-  const [selectedSortOptions, setSelectedSortOptions] =
-    useState('Alphabetically')
-  // we will use this filtered products array to display
-  const [sortedProducts, setSortedProducts] = useState([])
+  const {
+    products,
+    sortByPrice,
+    sortByAlphabetically,
+    togglePriceSortDirection,
+    ascendingOrder,
+    descendingOrder,
+  } = useProduct()
+  console.log(products)
+
   //Sort by Dialog component control
   const [open, setOpen] = useState(false)
   //Sorting Order
-  const [isAscending, setIsAscending] = useState(true)
+  const [isAscending, setIsAscending] = useState(false)
+  //sort options state, default alphabetically
+  const [selectedSortOptions, setSelectedSortOptions] =
+    useState('Alphabetically')
 
   useEffect(() => {
-    //prevent directly mutation of state
-    const copyProducts = [...products]
     if (selectedSortOptions === 'Price') {
-      const a = copyProducts.sort((a, b) => {
-        return a.price - b.price
-      })
-      setSortedProducts(a)
+      sortByPrice()
     } else {
-      const b = copyProducts.sort((a, b) => {
-        return a.name.localeCompare(b.name)
-      })
-      setSortedProducts(b)
+      sortByAlphabetically()
     }
   }, [selectedSortOptions])
 
   function handleSortDirection() {
-    setIsAscending(!isAscending)
-    const copyProducts = [...products]
     if (isAscending) {
-      const a = copyProducts.sort((a, b) => {
-        return b.price - a.price
-      })
-      setSortedProducts(a)
+      setIsAscending(false)
+      descendingOrder()
     } else {
-      const a = copyProducts.sort((a, b) => {
-        return a.price - b.price
-      })
-      setSortedProducts(a)
+      setIsAscending(true)
+      ascendingOrder()
     }
   }
 
@@ -202,7 +195,7 @@ export default function ProductsSection() {
                 {selectedSortOptions === 'Price' && (
                   <button onClick={handleSortDirection}>
                     <SwitchVerticalIcon
-                      className='mr-4 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
+                      className='mr-5 flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500'
                       aria-hidden='true'
                     />
                   </button>
@@ -317,7 +310,7 @@ export default function ProductsSection() {
 
               {/* Product grid */}
               <div className='mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3'>
-                <ProductList products={sortedProducts} />
+                <ProductList products={products} />
               </div>
             </div>
           </main>
