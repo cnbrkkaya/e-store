@@ -12,10 +12,21 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { listProducts } from '../../graphql/queries'
 //Reducer
 import ProductReducer from './ProductReducer'
-
+//Creating Product Context
 export const ProductContext = createContext()
 
 export default function ProductContextProvider(props) {
+  //Initial Product State
+  const [state, dispatch] = useReducer(ProductReducer, {
+    products: [],
+    filteredProducts: [],
+  })
+  //destructuring state for quicker access
+  const products = state?.products
+  const filteredProducts = state?.filteredProducts
+  //Featured Product State
+  const [featuredProduct, setFeaturedProduct] = useState(null)
+
   //Fetch products from the database
   const listProductsHandler = useCallback(async () => {
     try {
@@ -26,20 +37,13 @@ export default function ProductContextProvider(props) {
       console.error(err)
     }
   }, [])
-  //Initial Product State
-  const [products, dispatch] = useReducer(ProductReducer, null)
-  //sort options state, default alphabetically
-  const [selectedSortOptions, setSelectedSortOptions] =
-    useState('Alphabetically')
-
-  //Featured Product
-  const [featuredProduct, setFeaturedProduct] = useState(null)
 
   //Set featured and other products
   function productsHandler(result) {
+    //setFeatured Product
     const featured = result.filter((product) => product.featured)
     setFeaturedProduct(featured[0])
-
+    //set other products
     dispatch({
       type: 'SET_PRODUCTS',
       payload: result.filter((product) => !product.featured),
@@ -47,9 +51,11 @@ export default function ProductContextProvider(props) {
   }
 
   useEffect(() => {
+    //Initial Call to fetch products
     listProductsHandler()
   }, [listProductsHandler])
 
+  //Helper Functions
   const sortByPrice = (payload) => {
     dispatch({ type: 'SORT_BY_PRICE', payload })
   }
@@ -62,6 +68,12 @@ export default function ProductContextProvider(props) {
   const sortByAlphabetically = (payload) => {
     dispatch({ type: 'SORT_BY_ALPHABETICALLY', payload })
   }
+  const filterByCategory = (payload) => {
+    dispatch({ type: 'FILTER_BY_CATEGORY', payload })
+  }
+  const clearFilter = (payload) => {
+    dispatch({ type: 'CLEAR_FILTER', payload })
+  }
 
   return (
     products && (
@@ -73,6 +85,9 @@ export default function ProductContextProvider(props) {
           sortByAlphabetically,
           ascendingOrder,
           descendingOrder,
+          filterByCategory,
+          filteredProducts,
+          clearFilter,
         }}>
         {props.children}
       </ProductContext.Provider>

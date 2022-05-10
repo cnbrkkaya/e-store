@@ -5,6 +5,7 @@ import {
   ChevronDownIcon,
   PlusSmIcon,
   SwitchVerticalIcon,
+  BanIcon,
 } from '@heroicons/react/solid'
 //Components
 import ProductList from '../../components/ProductList/ProductList'
@@ -24,13 +25,13 @@ const filters = [
     id: 'category',
     name: 'Category',
     options: [
-      { value: 'People', label: 'People' },
-      { value: 'Premium', label: 'Premium' },
-      { value: 'Pets', label: 'Pets' },
-      { value: 'Food', label: 'Food' },
-      { value: 'Landmarks', label: 'Landmarks' },
-      { value: 'Cities', label: 'Cities' },
-      { value: 'Nature', label: 'Nature' },
+      { value: 'people', label: 'People' },
+      { value: 'premium', label: 'Premium' },
+      { value: 'pets', label: 'Pets' },
+      { value: 'food', label: 'Food' },
+      { value: 'landmarks', label: 'Landmarks' },
+      { value: 'cities', label: 'Cities' },
+      { value: 'nature', label: 'Nature' },
     ],
   },
   {
@@ -52,6 +53,9 @@ export default function ProductsSection() {
     sortByAlphabetically,
     ascendingOrder,
     descendingOrder,
+    filterByCategory,
+    filteredProducts,
+    clearFilter,
   } = useProduct()
 
   //Sort by Dialog component control
@@ -61,6 +65,8 @@ export default function ProductsSection() {
   //sort options state, default alphabetically
   const [selectedSortOptions, setSelectedSortOptions] =
     useState('Alphabetically')
+  //filter options state, default all
+  const [selectedFilterOptions, setSelectedFilterOptions] = useState([])
 
   useEffect(() => {
     if (selectedSortOptions === 'Price') {
@@ -79,6 +85,26 @@ export default function ProductsSection() {
       ascendingOrder()
     }
   }
+
+  function handleFilterChange(e) {
+    if (e.target.checked) {
+      console.log('a')
+      setSelectedFilterOptions([...selectedFilterOptions, e.target.value])
+    } else {
+      console.log('b')
+      setSelectedFilterOptions(
+        selectedFilterOptions.filter((option) => option !== e.target.value)
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (selectedFilterOptions.length > 0) {
+      filterByCategory(selectedFilterOptions)
+    } else {
+      clearFilter()
+    }
+  }, [selectedFilterOptions])
 
   return (
     <div className='mx-auto max-w-7xl px-4'>
@@ -123,7 +149,7 @@ export default function ProductsSection() {
                       </button>
                     </div>
 
-                    {/* Filters */}
+                    {/* Filters Mobile */}
                     <form className='mt-4'>
                       {filters.map((section) => (
                         <Disclosure
@@ -292,6 +318,7 @@ export default function ProductsSection() {
                                   defaultValue={option.value}
                                   type='checkbox'
                                   className='h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500'
+                                  onChange={handleFilterChange}
                                 />
                                 <label
                                   htmlFor={`${section.id}-${optionIdx}`}
@@ -307,10 +334,25 @@ export default function ProductsSection() {
                   </form>
                 </div>
               </aside>
-
-              {/* Product grid */}
               <div className='mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3'>
-                <ProductList products={products} />
+                {/* Product grid */}
+                {filteredProducts ? (
+                  <ProductList
+                    products={
+                      filteredProducts.length > 0 ? filteredProducts : products
+                    }
+                  />
+                ) : (
+                  <>
+                    <BanIcon
+                      className='h-6 w-6 text-gray-400 group-hover:text-gray-500'
+                      aria-hidden='true'
+                    />
+                    <span className='hidden sm:block  text-gray-500 font-medium'>
+                      We can not find a product in selected category
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </main>
