@@ -1,6 +1,8 @@
 export default function ProductReducer(state, action) {
   //copy products state for not to mutate the original state
   const copyProducts = state ? [...state.products] : []
+  const copyFilteredProducts = state ? [...state.filteredProducts] : []
+  const { filteredProducts, products } = state
 
   switch (action.type) {
     case 'SET_PRODUCTS':
@@ -12,31 +14,60 @@ export default function ProductReducer(state, action) {
 
     //Alphabetical Sorting
     case 'SORT_BY_ALPHABETICALLY':
-      const alphabeticallySorted = copyProducts.sort((a, b) => {
-        return a.name.localeCompare(b.name)
-      })
+      if (filteredProducts.length > 0) {
+        const alphabeticalSort = copyFilteredProducts.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+        return { ...state, filteredProducts: alphabeticalSort }
+      } else {
+        const alphabeticallySorted = copyProducts.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
 
-      return { ...state, products: alphabeticallySorted }
+        return { ...state, products: alphabeticallySorted }
+      }
 
     //Sorting by Price
     case 'SORT_BY_PRICE':
-      const sortedByPrice = copyProducts.sort((a, b) => {
-        return a.price - b.price
-      })
-      return { ...state, products: sortedByPrice }
+      if (filteredProducts.length > 0) {
+        const priceSort = copyFilteredProducts.sort((a, b) => {
+          return a.price - b.price
+        })
+        return { ...state, filteredProducts: priceSort }
+      } else {
+        const priceSorted = copyProducts.sort((a, b) => {
+          return a.price - b.price
+        })
+        return { ...state, products: priceSorted }
+      }
+
     //Sorting by Price (Ascending)
     case 'ASCENDING':
-      const ascendingOrder = copyProducts.sort((a, b) => {
-        return b.price - a.price
-      })
-      return { ...state, products: ascendingOrder }
+      if (filteredProducts.length > 0) {
+        const ascendingSort = copyFilteredProducts.sort((a, b) => {
+          return a.price - b.price
+        })
+        return { ...state, filteredProducts: ascendingSort }
+      } else {
+        const ascendingSorted = copyProducts.sort((a, b) => {
+          return a.price - b.price
+        })
+        return { ...state, products: ascendingSorted }
+      }
 
     //Sorting by Price (Descending)
     case 'DESCENDING':
-      const descendingOrder = copyProducts.sort((a, b) => {
-        return a.price - b.price
-      })
-      return { ...state, products: descendingOrder }
+      if (filteredProducts.length > 0) {
+        const descendingSort = copyFilteredProducts.sort((a, b) => {
+          return b.price - a.price
+        })
+        return { ...state, filteredProducts: descendingSort }
+      } else {
+        const descendingSorted = copyProducts.sort((a, b) => {
+          return b.price - a.price
+        })
+        return { ...state, products: descendingSorted }
+      }
 
     //Filter by specific  Category
     case 'FILTER_BY_CATEGORY':

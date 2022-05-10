@@ -61,7 +61,7 @@ export default function ProductsSection() {
   //Sort by Dialog component control
   const [open, setOpen] = useState(false)
   //Sorting Order
-  const [isAscending, setIsAscending] = useState(false)
+  const [isAscending, setIsAscending] = useState(true)
   //sort options state, default alphabetically
   const [selectedSortOptions, setSelectedSortOptions] =
     useState('Alphabetically')
