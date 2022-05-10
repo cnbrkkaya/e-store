@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { XIcon } from '@heroicons/react/solid'
 import { Popover, Transition } from '@headlessui/react'
 import ShoppingCart from '../../assets/images/ShoppingCart.svg'
 //Contexts
@@ -7,10 +8,12 @@ import { useCart } from '../../hooks/useCart/useCart'
 import CartItem from '../CartItem/CartItem'
 
 export default function Cart() {
-  const { cartProducts, clearCart } = useCart()
+  const { cartProducts, clearCart, cartVisible, setCartVisible } = useCart()
   return (
     <Popover className='ml-4 flow-root text-sm lg:relative lg:ml-8'>
-      <Popover.Button className='group -m-2 p-2 flex items-center'>
+      <Popover.Button
+        onClick={() => setCartVisible(true)}
+        className='group -m-2 p-2 flex items-center'>
         <img
           className='h-8 w-auto sm:h-6 mb-4'
           src={ShoppingCart}
@@ -21,7 +24,9 @@ export default function Cart() {
         </span>
         <span className='sr-only'>items in cart, view bag</span>
       </Popover.Button>
+
       <Transition
+        show={cartVisible}
         as={Fragment}
         enter='transition ease-out duration-200'
         enterFrom='opacity-0'
@@ -34,6 +39,11 @@ export default function Cart() {
           className='absolute top-16 inset-x-0 mt-px pb-6 bg-white sm:px-2 lg:top-8 lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5'>
           <h2 className='sr-only'>Shopping Cart</h2>
 
+          <button
+            className='origin-top-right absolute right-0  '
+            onClick={() => setCartVisible(false)}>
+            <XIcon className='h-5 w-5' aria-hidden='true' />
+          </button>
           <div className='max-w-2xl mx-auto px-4'>
             {cartProducts.length === 0 && (
               <div className='mt-5 mb-5 items-center'>

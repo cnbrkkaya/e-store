@@ -1,10 +1,12 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useReducer, useState } from 'react'
 
 import CartReducer from './CartReducer'
 
 export const CartContext = createContext()
 
 export default function CartContextProvider(props) {
+  //Controlling shopping cart visibility
+  const [cartVisible, setCartVisible] = useState(false)
   //get initial state from localstorage
   const [cartProducts, dispatch] = useReducer(
     CartReducer,
@@ -24,7 +26,14 @@ export default function CartContextProvider(props) {
 
   return (
     <CartContext.Provider
-      value={{ cartProducts, addProduct, removeProduct, clearCart }}>
+      value={{
+        cartProducts,
+        addProduct,
+        removeProduct,
+        clearCart,
+        cartVisible,
+        setCartVisible,
+      }}>
       {props.children}
     </CartContext.Provider>
   )

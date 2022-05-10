@@ -4,7 +4,7 @@ import { useCart } from '../../hooks/useCart/useCart'
 
 export default function FeaturedSection() {
   const { featuredProduct } = useProduct()
-  const { addProduct } = useCart()
+  const { addProduct, setCartVisible } = useCart()
 
   function handleAddProduct() {
     addProduct({
@@ -16,6 +16,8 @@ export default function FeaturedSection() {
         alt: featuredProduct.image.alt,
       },
     })
+    //After adding product to cart, set cart visible to true
+    setCartVisible(true)
   }
 
   return (

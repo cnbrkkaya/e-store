@@ -1,7 +1,7 @@
 import { useCart } from '../../hooks/useCart/useCart'
 
 export default function Product({ product }) {
-  const { addProduct } = useCart()
+  const { addProduct, setCartVisible } = useCart()
   function handleAddProduct() {
     addProduct({
       id: product.id,
@@ -12,6 +12,8 @@ export default function Product({ product }) {
         alt: product.image.alt,
       },
     })
+    //After adding product to cart, set cart visible to true
+    setCartVisible(true)
   }
   return (
     <div className='group relative bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden'>
