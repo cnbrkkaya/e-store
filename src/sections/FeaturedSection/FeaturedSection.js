@@ -78,10 +78,12 @@ export default function FeaturedSection() {
                       )
                     })}
                   </div>
+                  {/* Details */}
                   <div className='flex flex-col text-right py-8'>
                     <h3 className='font-bold text-lg'>Details</h3>
                     <p className='text-gray-600 py-2'>
-                      Size: 1020 x 1020 pixels
+                      Size: {featuredProduct.dimmentions.height} x{' '}
+                      {featuredProduct.dimmentions.width} pixels
                     </p>
                     <p className='text-gray-600'>Size: 15mb</p>
                   </div>

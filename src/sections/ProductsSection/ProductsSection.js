@@ -17,9 +17,6 @@ const sortOptions = [
   { name: 'Price', href: '#', current: false },
 ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 const categoryFilters = [
   {
     id: 'category',
@@ -49,6 +46,10 @@ const priceFilters = [
   },
 ]
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export default function ProductsSection() {
   const {
     products,
@@ -71,6 +72,7 @@ export default function ProductsSection() {
   //filter options state, default all
   const [selectedFilterOptions, setSelectedFilterOptions] = useState([])
 
+  //Sorting Feature
   useEffect(() => {
     if (selectedSortOptions === 'Price') {
       sortByPrice()
@@ -78,6 +80,15 @@ export default function ProductsSection() {
       sortByAlphabetically()
     }
   }, [selectedSortOptions])
+
+  //Filtering Feature
+  useEffect(() => {
+    if (selectedFilterOptions.length > 0) {
+      filterByCategory(selectedFilterOptions)
+    } else {
+      clearFilter()
+    }
+  }, [selectedFilterOptions])
 
   function handleSortDirection() {
     if (isAscending) {
@@ -98,14 +109,6 @@ export default function ProductsSection() {
       )
     }
   }
-
-  useEffect(() => {
-    if (selectedFilterOptions.length > 0) {
-      filterByCategory(selectedFilterOptions)
-    } else {
-      clearFilter()
-    }
-  }, [selectedFilterOptions])
 
   return (
     <div className='mx-auto max-w-7xl px-4'>
@@ -324,14 +327,6 @@ export default function ProductsSection() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-
-                {/* <button
-                  type='button'
-                  className='p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden'
-                  onClick={() => setOpen(true)}>
-                  <span className='sr-only'>Filters</span>
-                  <FilterIcon className='w-5 h-5' aria-hidden='true' />
-                </button> */}
               </div>
             </div>
 
@@ -431,6 +426,7 @@ export default function ProductsSection() {
                     }
                   />
                 ) : (
+                  // No Product
                   <>
                     <BanIcon
                       className='h-6 w-6 text-gray-400 group-hover:text-gray-500'

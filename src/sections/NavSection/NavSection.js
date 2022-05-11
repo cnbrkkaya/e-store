@@ -1,5 +1,4 @@
 import Logo from '../../assets/images/logo.svg'
-import ShoppingCart from '../../assets/images/ShoppingCart.png'
 import Cart from '../../components/Cart/Cart'
 
 export default function NavSection() {
